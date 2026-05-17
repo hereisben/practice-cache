@@ -436,7 +436,16 @@
     <p>
       <strong>Line</strong> means the physical cache line used in that step.
     </p>
-    <table>
+    <table id="flowTable">
+      <colgroup>
+        <col style="width: 8%" />
+        <col style="width: 8%" />
+        <col style="width: 13%" />
+        <col style="width: 13%" />
+        <col style="width: 13%" />
+        <col style="width: 13%" />
+        <col style="width: 32%" />
+      </colgroup>
       <thead>
         <tr>
           <th>Step</th>
@@ -458,7 +467,8 @@
           <th>Line</th>
           <th>Valid</th>
           <th>Tag</th>
-          <th>Data block</th>
+          <th>Block start</th>
+          <th>Block end</th>
         </tr>
       </thead>
       <tbody id="finalCacheBody"></tbody>
@@ -468,7 +478,7 @@
       id="lruVictimInput"
       data-answer=""
       type="text"
-      placeholder="Which block will be replaced next?"
+      placeholder="LRU block start"
     />
     <hr />
     <details>
@@ -745,6 +755,21 @@
           font-size: 20px;
         }
       }
+
+      #flowTable {
+        table-layout: fixed;
+        width: auto;
+      }
+
+      #flowTable th,
+      #flowTable td {
+        white-space: nowrap;
+      }
+
+      #flowTable input {
+        width: 100%;
+        box-sizing: border-box;
+      }
     </style>
     <script>
       let ADDRESS_SPACE;
@@ -780,6 +805,10 @@
 
       function getBlockStart(address) {
         return Math.floor(address / BLOCK_SIZE_BYTES) * BLOCK_SIZE_BYTES;
+      }
+
+      function getBlockEnd(blockStart) {
+        return blockStart + BLOCK_SIZE_BYTES - 1;
       }
 
       function getDataBlock(blockStart) {
@@ -1154,21 +1183,23 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
         currentResult.cache.forEach((line, index) => {
           const validAnswer = line.valid;
           const tagAnswer = line.valid ? line.tag : "";
-          const dataAnswer = line.valid ? getDataBlock(line.blockStart) : "";
+          const blockStartAnswer = line.valid ? line.blockStart : "";
+          const blockEndAnswer = line.valid ? getBlockEnd(line.blockStart) : "";
 
           finalCacheBody.innerHTML += `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${makeInput(validAnswer, "valid")}</td>
-          <td>${makeInput(tagAnswer, "tag")}</td>
-          <td>${makeInput(dataAnswer, "data block")}</td>
-        </tr>
-      `;
+    <tr>
+      <td>${index + 1}</td>
+      <td>${makeInput(validAnswer, "valid")}</td>
+      <td>${makeInput(tagAnswer, "tag")}</td>
+      <td>${makeInput(blockStartAnswer, "start")}</td>
+      <td>${makeInput(blockEndAnswer, "end")}</td>
+    </tr>
+  `;
         });
 
         const lruVictimInput = document.getElementById("lruVictimInput");
         lruVictimInput.value = "";
-        lruVictimInput.dataset.answer = `block ${currentResult.lruVictim}`;
+        lruVictimInput.dataset.answer = currentResult.lruVictim;
         lruVictimInput.classList.remove("correct", "wrong");
 
         renderAnswerKey();
@@ -1262,7 +1293,8 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
         html += tag("th", "Line");
         html += tag("th", "Valid");
         html += tag("th", "Tag");
-        html += tag("th", "Data block");
+        html += tag("th", "Block start");
+        html += tag("th", "Block end");
         html += closeTag("tr");
         html += closeTag("thead");
         html += openTag("tbody");
@@ -1272,7 +1304,8 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
           html += tag("td", index + 1);
           html += tag("td", line.valid);
           html += tag("td", line.valid ? line.tag : "");
-          html += tag("td", line.valid ? getDataBlock(line.blockStart) : "");
+          html += tag("td", line.valid ? line.blockStart : "");
+          html += tag("td", line.valid ? getBlockEnd(line.blockStart) : "");
           html += closeTag("tr");
         });
 
@@ -1281,7 +1314,7 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
 
         html += tag(
           "p",
-          "<strong>Final LRU victim:</strong> block " + currentResult.lruVictim,
+          "<strong>Final LRU victim:</strong> " + currentResult.lruVictim,
         );
 
         answerKey.innerHTML = html;
