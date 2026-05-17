@@ -1,0 +1,800 @@
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+/* =========================================================
+ * Retro DaisyUI-style Markdown PDF Theme
+ * Giữ cấu trúc gốc:
+ * 1. VS Code markdown.css
+ * 2. Tomorrow Highlight.js theme
+ * 3. Markdown PDF CSS
+ * Bỏ overlap bằng cách gom màu/theme về cùng retro variables.
+ * ========================================================= */
+
+/* ---------- Retro Theme Variables ---------- */
+
+:root {
+  --retro-bg: #ece3ca;
+  --retro-surface: #f6edd8;
+  --retro-surface-2: #efe3c4;
+
+  --retro-text: #282425;
+  --retro-muted: #6f5f4f;
+
+  --retro-primary: #ef9995;
+  --retro-primary-dark: #d96f6a;
+
+  --retro-secondary: #a4cbb4;
+  --retro-secondary-dark: #6fa685;
+
+  --retro-accent: #ebdc99;
+  --retro-accent-dark: #c6a84b;
+
+  --retro-info: #7ec4c1;
+  --retro-purple: #d6b3ff;
+  --retro-orange: #f2b880;
+
+  --retro-border: #282425;
+  --retro-code-bg: #282425;
+  --retro-code-text: #f6edd8;
+}
+
+/* =========================================================
+ * 1. VS Code Markdown CSS Structure
+ * ========================================================= */
+
+html {
+  background: var(--retro-bg);
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15.5px;
+  padding: 34px 46px;
+  line-height: 1.65;
+  word-wrap: break-word;
+  color: var(--retro-text);
+  background: var(--retro-bg);
+}
+
+#code-csp-warning {
+  position: fixed;
+  top: 0;
+  right: 0;
+  color: var(--retro-code-text);
+  margin: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-family: sans-serif;
+  background-color: var(--retro-border);
+  cursor: pointer;
+  padding: 6px;
+  border: 2px solid var(--retro-border);
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 var(--retro-border);
+}
+
+#code-csp-warning:hover {
+  text-decoration: none;
+  background-color: var(--retro-primary-dark);
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+body.scrollBeyondLastLine {
+  margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+  position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -12px;
+  height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+  left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+  border-left: 3px solid var(--retro-primary-dark);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+  border-left: 3px solid var(--retro-border);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+  border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+  border-left: 3px solid var(--retro-primary-dark);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+  border-left: 3px solid var(--retro-accent);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+  border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+  border-left: 3px solid var(--retro-accent-dark);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+  border-left: 3px solid var(--retro-accent);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+  border-left: none;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  border: 3px solid var(--retro-border);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--retro-border);
+  margin: 16px 0;
+}
+
+a {
+  color: #2f6f73;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--retro-primary-dark);
+  text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--retro-primary-dark);
+  outline-offset: 2px;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-bottom: 3px dashed var(--retro-border);
+  margin: 32px 0;
+}
+
+h1 {
+  font-family: "Trebuchet MS", Georgia, serif;
+  font-size: 32px;
+  font-weight: 900;
+  padding: 16px 20px;
+  margin: 0 0 28px;
+  line-height: 1.2;
+  color: var(--retro-text);
+  background: var(--retro-primary);
+  border: 3px solid var(--retro-border);
+  border-radius: 14px;
+  box-shadow: 6px 6px 0 var(--retro-border);
+}
+
+h2 {
+  font-family: "Trebuchet MS", Georgia, serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--retro-text);
+  background: var(--retro-secondary);
+  padding: 10px 16px;
+  margin-top: 38px;
+  margin-bottom: 18px;
+  border: 3px solid var(--retro-border);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+h3 {
+  font-family: "Trebuchet MS", Georgia, serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--retro-text);
+  margin-top: 30px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 3px dashed var(--retro-border);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+}
+
+h4 {
+  font-family: "Trebuchet MS", Georgia, serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--retro-muted);
+  margin-top: 22px;
+  margin-bottom: 10px;
+}
+
+h5,
+h6 {
+  font-family: "Trebuchet MS", Georgia, serif;
+  color: var(--retro-muted);
+  font-weight: 800;
+}
+
+p {
+  margin: 10px 0;
+}
+
+strong {
+  color: var(--retro-text);
+  font-weight: 900;
+  background: var(--retro-accent);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+em {
+  color: var(--retro-muted);
+}
+
+mark {
+  background: var(--retro-accent);
+  color: var(--retro-text);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+::selection {
+  background: var(--retro-primary);
+  color: var(--retro-text);
+}
+
+ul,
+ol {
+  padding-left: 28px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+li::marker {
+  color: var(--retro-primary-dark);
+  font-weight: 900;
+}
+
+li > p {
+  margin: 6px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px 0 30px;
+  font-size: 14.5px;
+  background: var(--retro-surface);
+  border: 3px solid var(--retro-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 5px 5px 0 var(--retro-border);
+}
+
+table > thead {
+  background: var(--retro-secondary);
+}
+
+table > thead > tr > th {
+  text-align: left;
+  color: var(--retro-text);
+  font-weight: 900;
+  border-bottom: 3px solid var(--retro-border);
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+  padding: 11px 13px;
+  border-right: 2px solid var(--retro-border);
+  border-bottom: 2px solid rgba(40, 36, 37, 0.35);
+  vertical-align: top;
+}
+
+table > thead > tr > th:last-child,
+table > thead > tr > td:last-child,
+table > tbody > tr > th:last-child,
+table > tbody > tr > td:last-child {
+  border-right: none;
+}
+
+table > tbody > tr:nth-child(even) {
+  background: var(--retro-surface-2);
+}
+
+table > tbody > tr:last-child > td,
+table > tbody > tr:last-child > th {
+  border-bottom: none;
+}
+
+table > tbody > tr + tr > td {
+  border-top: 0;
+}
+
+blockquote {
+  margin: 20px 0;
+  padding: 14px 18px;
+  background: var(--retro-accent);
+  border: 3px solid var(--retro-border);
+  border-left-width: 10px;
+  border-left-style: solid;
+  border-left-color: var(--retro-primary-dark);
+  color: var(--retro-text);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+blockquote p {
+  margin: 6px 0;
+}
+
+code {
+  font-family:
+    "Courier New", Courier, Menlo, Monaco, Consolas, "Droid Sans Mono",
+    monospace, "Droid Sans Fallback";
+  font-size: 1em;
+  line-height: 1.357em;
+}
+
+body.wordWrap pre {
+  white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+  padding: 18px 20px;
+  border-radius: 14px;
+  overflow: auto;
+}
+
+pre {
+  background-color: var(--retro-code-bg);
+  color: var(--retro-code-text);
+  border: 3px solid var(--retro-border);
+  border-radius: 14px;
+  margin: 18px 0 28px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  box-shadow: 6px 6px 0 var(--retro-border);
+}
+
+pre code {
+  color: var(--retro-code-text);
+  background: transparent;
+  tab-size: 4;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13.8px;
+  line-height: 1.55;
+}
+
+pre.hljs code > div {
+  padding: 8px;
+  overflow: visible;
+}
+
+/** Theming */
+
+.vscode-light pre {
+  background-color: var(--retro-code-bg);
+}
+
+.vscode-dark pre {
+  background-color: var(--retro-code-bg);
+}
+
+.vscode-high-contrast pre {
+  background-color: var(--retro-code-bg);
+}
+
+.vscode-high-contrast h1 {
+  border-color: var(--retro-border);
+}
+
+.vscode-light table > thead > tr > th {
+  border-color: var(--retro-border);
+}
+
+.vscode-dark table > thead > tr > th {
+  border-color: var(--retro-border);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+  border-color: var(--retro-border);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+  border-color: var(--retro-border);
+}
+
+/* =========================================================
+ * 2. Tomorrow Theme, Retro Colors
+ * ========================================================= */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #a79d82;
+  font-style: italic;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: var(--retro-primary);
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: var(--retro-accent);
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+  color: var(--retro-orange);
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: var(--retro-secondary);
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: var(--retro-info);
+  font-weight: 800;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: var(--retro-purple);
+  font-weight: 800;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  color: var(--retro-code-text);
+  background: var(--retro-code-bg);
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* =========================================================
+ * 3. Markdown PDF CSS
+ * ========================================================= */
+
+/*
+ * Markdown PDF CSS
+ */
+
+pre:not(.hljs) {
+  padding: 23px;
+  line-height: 19px;
+}
+
+blockquote {
+  background: var(--retro-accent);
+  border-color: var(--retro-border);
+}
+
+.emoji {
+  height: 1.4em;
+}
+
+code {
+  font-size: 14px;
+  line-height: 19px;
+}
+
+/* for inline code */
+
+:not(pre):not(.hljs) > code {
+  color: var(--retro-accent);
+  background: var(--retro-text);
+  font-size: inherit;
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 2px solid var(--retro-border);
+}
+
+/* ---------- Checkboxes ---------- */
+
+input[type="checkbox"] {
+  transform: scale(1.1);
+  margin-right: 7px;
+  accent-color: var(--retro-primary-dark);
+}
+
+/* ---------- Task Lists ---------- */
+
+.contains-task-list {
+  list-style: none;
+  padding-left: 8px;
+}
+
+.task-list-item {
+  list-style: none;
+}
+
+/* ---------- Keyboard Tags ---------- */
+
+kbd {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9em;
+  color: var(--retro-text);
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-border);
+  border-radius: 6px;
+  padding: 2px 6px;
+  box-shadow: 2px 2px 0 var(--retro-border);
+}
+
+/* ---------- Details / Summary ---------- */
+
+details {
+  background: var(--retro-surface);
+  border: 3px solid var(--retro-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 18px 0;
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+summary {
+  font-weight: 900;
+  cursor: pointer;
+  color: var(--retro-text);
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+
+.page {
+  page-break-after: always;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+/* =========================================================
+ * Print / PDF Settings
+ * ========================================================= */
+
+@media print {
+  html,
+  body {
+    background: var(--retro-bg);
+  }
+
+  body {
+    padding: 24px 34px;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  h1 {
+    font-size: 26px;
+    box-shadow: 4px 4px 0 var(--retro-border);
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 21px;
+    box-shadow: 3px 3px 0 var(--retro-border);
+    page-break-after: avoid;
+  }
+
+  h3,
+  h4 {
+    page-break-after: avoid;
+  }
+
+  table,
+  pre,
+  blockquote,
+  details {
+    page-break-inside: avoid;
+  }
+
+  pre,
+  table,
+  blockquote,
+  img,
+  details {
+    box-shadow: 3px 3px 0 var(--retro-border);
+  }
+
+  a {
+    color: #2f6f73;
+    text-decoration: underline;
+  }
+}
+
+/* =========================================================
+ * 4. Form Inputs / Controls
+ * ========================================================= */
+
+/* ---------- Text Inputs ---------- */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--retro-text);
+  background: var(--retro-surface);
+  border: 3px solid var(--retro-border);
+  border-radius: 10px;
+  padding: 8px 11px;
+  box-shadow: 3px 3px 0 var(--retro-border);
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus,
+select:focus {
+  background: var(--retro-bg);
+  border-color: var(--retro-primary-dark);
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ---------- Placeholder ---------- */
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--retro-muted);
+  opacity: 0.8;
+}
+
+/* ---------- Select ---------- */
+
+select {
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  font-family: "Trebuchet MS", Georgia, serif;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--retro-text);
+  background: var(--retro-primary);
+  border: 3px solid var(--retro-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--retro-border);
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background: var(--retro-primary-dark);
+}
+
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--retro-border);
+}
+
+/* ---------- Checkboxes / Radio ---------- */
+
+input[type="checkbox"],
+input[type="radio"] {
+  transform: scale(1.1);
+  margin-right: 7px;
+  accent-color: var(--retro-primary-dark);
+}
+
+/* ---------- Disabled State ---------- */
+
+input:disabled,
+textarea:disabled,
+select:disabled,
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Labels ---------- */
+
+label {
+  font-weight: 800;
+  color: var(--retro-text);
+}
