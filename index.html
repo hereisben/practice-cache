@@ -362,8 +362,6 @@
         font-size: inherit;
       }
 
-      /* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
--------------------------------------------------------- */
       .page {
         page-break-after: always;
       }
@@ -398,6 +396,27 @@
     <p><strong>Access sequence:</strong></p>
     <p id="sequenceBox"></p>
     <p id="scoreBox"></p>
+    <div id="binaryStickyBar" class="binary-sticky-bar binary-size-small">
+      <div class="binary-sticky-header">
+        <span>Binary Helper</span>
+        <div class="binary-sticky-actions">
+          <button id="shrinkBinaryBarBtn" type="button">−</button>
+          <button id="growBinaryBarBtn" type="button">+</button>
+          <button id="toggleBinaryBarBtn" type="button">Hide</button>
+        </div>
+      </div>
+      <div id="binaryStickyContent"></div>
+    </div>
+    <p>
+      <button
+        id="showBinaryBarBtn"
+        class="binary-show-btn"
+        type="button"
+        style="display: none"
+      >
+        Show Binary Helper
+      </button>
+    </p>
     <hr />
     <h1 id="part-1-address-breakdown">Part 1: Address Breakdown</h1>
     <table>
@@ -515,6 +534,216 @@
 
       #lruVictimInput {
         min-width: 20vw;
+      }
+
+      /* =========================================================
+ * Sticky Binary Helper Bar
+ * Dark Retro Theme
+ * ========================================================= */
+
+      .binary-sticky-bar {
+        position: fixed;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+
+        background: var(--retro-code-bg);
+        color: var(--retro-code-text);
+
+        border: 3px solid var(--retro-border);
+        border-radius: 12px;
+        box-shadow: 5px 5px 0 var(--retro-border);
+
+        padding: 7px 9px 9px;
+        max-width: 92vw;
+      }
+
+      .binary-sticky-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+
+        margin-bottom: 6px;
+        font-family: "Trebuchet MS", Georgia, serif;
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--retro-code-text);
+      }
+
+      .binary-sticky-header span {
+        background: var(--retro-primary);
+        color: var(--retro-text);
+        border: 2px solid var(--retro-border);
+        border-radius: 7px;
+        padding: 2px 7px;
+        box-shadow: 2px 2px 0 var(--retro-border);
+      }
+
+      .binary-sticky-actions {
+        display: flex;
+        gap: 5px;
+      }
+
+      .binary-sticky-header button,
+      .binary-show-btn {
+        padding: 4px 8px;
+        border: 2px solid var(--retro-border);
+        border-radius: 7px;
+
+        background: var(--retro-accent);
+        color: var(--retro-text);
+
+        cursor: pointer;
+        font-family: "Trebuchet MS", Georgia, serif;
+        font-size: 12px;
+        font-weight: 900;
+        line-height: 1.1;
+
+        box-shadow: 2px 2px 0 var(--retro-border);
+      }
+
+      .binary-sticky-header button:hover,
+      .binary-show-btn:hover {
+        background: var(--retro-primary);
+      }
+
+      .binary-sticky-header button:active,
+      .binary-show-btn:active {
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 var(--retro-border);
+      }
+
+      .binary-show-btn {
+        display: none;
+        position: fixed;
+        top: 12px;
+        right: 16px;
+        z-index: 10000;
+      }
+
+      .binary-helper-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 0 auto;
+
+        background: var(--retro-code-bg);
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+
+        outline: 2px solid var(--retro-border);
+        outline-offset: -2px;
+      }
+
+      .binary-helper-table td {
+        border-right: 2px solid var(--retro-border);
+        border-bottom: 2px solid var(--retro-border);
+
+        text-align: center;
+        font-family: "Courier New", Courier, monospace;
+        user-select: none;
+      }
+
+      .binary-helper-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .binary-helper-table td:last-child {
+        border-right: none;
+      }
+
+      .binary-helper-table .bit-value {
+        background: var(--retro-secondary);
+        color: var(--retro-text);
+        font-weight: 900;
+      }
+
+      .binary-helper-table .bit-toggle {
+        background: var(--retro-code-bg);
+        color: var(--retro-code-text);
+        cursor: pointer;
+        font-weight: 900;
+      }
+
+      .binary-helper-table .bit-toggle:hover {
+        background: var(--retro-primary);
+        color: var(--retro-text);
+      }
+
+      .binary-helper-table .bit-toggle.binary-one {
+        background: var(--retro-accent);
+        color: var(--retro-text);
+      }
+
+      .binary-helper-note {
+        text-align: center;
+        margin-top: 6px;
+        font-size: 11px;
+        color: var(--retro-code-text);
+        opacity: 0.85;
+      }
+
+      /* Small size */
+      .binary-size-small .binary-helper-table td {
+        min-width: 36px;
+        height: 25px;
+        font-size: 13px;
+      }
+
+      .binary-size-small .binary-helper-note {
+        display: none;
+      }
+
+      /* Medium size */
+      .binary-size-medium .binary-helper-table td {
+        min-width: 48px;
+        height: 34px;
+        font-size: 17px;
+      }
+
+      .binary-size-medium .binary-helper-note {
+        display: block;
+      }
+
+      /* Large size */
+      .binary-size-large .binary-helper-table td {
+        min-width: 60px;
+        height: 42px;
+        font-size: 21px;
+      }
+
+      .binary-size-large .binary-helper-note {
+        display: block;
+      }
+
+      @media (max-width: 700px) {
+        .binary-sticky-bar {
+          width: calc(100vw - 24px);
+          left: 12px;
+          right: 12px;
+          transform: none;
+          overflow-x: auto;
+        }
+
+        .binary-size-small .binary-helper-table td {
+          min-width: 32px;
+          height: 24px;
+          font-size: 13px;
+        }
+
+        .binary-size-medium .binary-helper-table td {
+          min-width: 40px;
+          height: 30px;
+          font-size: 16px;
+        }
+
+        .binary-size-large .binary-helper-table td {
+          min-width: 50px;
+          height: 38px;
+          font-size: 20px;
+        }
       }
     </style>
     <script>
@@ -763,6 +992,124 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
         };
       }
 
+      function renderBinaryStickyBar() {
+        const container = document.getElementById("binaryStickyContent");
+
+        if (!container) {
+          return;
+        }
+
+        let html = "";
+
+        html += `<table class="binary-helper-table">`;
+        html += `<tbody>`;
+        html += `<tr>`;
+
+        for (let bit = ADDRESS_BITS - 1; bit >= 0; bit--) {
+          html += `<td class="bit-value">${2 ** bit}</td>`;
+        }
+
+        html += `</tr>`;
+        html += `<tr>`;
+
+        for (let bit = ADDRESS_BITS - 1; bit >= 0; bit--) {
+          html += `<td class="bit-toggle" data-bit="${bit}">0</td>`;
+        }
+
+        html += `</tr>`;
+        html += `</tbody>`;
+        html += `</table>`;
+
+        html += `
+      <div class="binary-helper-note">
+        Click the bottom row to toggle 0 / 1 while you calculate.
+      </div>
+    `;
+
+        container.innerHTML = html;
+
+        const toggles = container.querySelectorAll(".bit-toggle");
+
+        toggles.forEach(function (cell) {
+          cell.addEventListener("click", function () {
+            if (cell.textContent === "0") {
+              cell.textContent = "1";
+              cell.classList.add("binary-one");
+            } else {
+              cell.textContent = "0";
+              cell.classList.remove("binary-one");
+            }
+          });
+        });
+      }
+
+      function resetBinaryStickyBits() {
+        const toggles = document.querySelectorAll(".bit-toggle");
+
+        toggles.forEach(function (cell) {
+          cell.textContent = "0";
+          cell.classList.remove("binary-one");
+        });
+      }
+
+      function setupBinaryStickyBarControls() {
+        const bar = document.getElementById("binaryStickyBar");
+        const hideBtn = document.getElementById("toggleBinaryBarBtn");
+        const showBtn = document.getElementById("showBinaryBarBtn");
+        const shrinkBtn = document.getElementById("shrinkBinaryBarBtn");
+        const growBtn = document.getElementById("growBinaryBarBtn");
+
+        const sizeClasses = [
+          "binary-size-small",
+          "binary-size-medium",
+          "binary-size-large",
+        ];
+
+        let currentSizeIndex = 0;
+
+        function applySize() {
+          sizeClasses.forEach(function (sizeClass) {
+            bar.classList.remove(sizeClass);
+          });
+
+          bar.classList.add(sizeClasses[currentSizeIndex]);
+        }
+
+        if (hideBtn) {
+          hideBtn.addEventListener("click", function () {
+            bar.style.display = "none";
+            showBtn.style.display = "block";
+          });
+        }
+
+        if (showBtn) {
+          showBtn.addEventListener("click", function () {
+            bar.style.display = "block";
+            showBtn.style.display = "none";
+          });
+        }
+
+        if (shrinkBtn) {
+          shrinkBtn.addEventListener("click", function () {
+            if (currentSizeIndex > 0) {
+              currentSizeIndex--;
+              applySize();
+            }
+          });
+        }
+
+        if (growBtn) {
+          growBtn.addEventListener("click", function () {
+            if (currentSizeIndex < sizeClasses.length - 1) {
+              currentSizeIndex++;
+              applySize();
+            }
+          });
+        }
+
+        applySize();
+      }
+
       function renderProblem() {
         renderGiven();
 
@@ -827,6 +1174,9 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
         renderAnswerKey();
 
         document.getElementById("scoreBox").textContent = "";
+
+        renderBinaryStickyBar();
+        resetBinaryStickyBits();
       }
 
       function renderAnswerKey() {
@@ -976,8 +1326,11 @@ offset decimal = address mod ${BLOCK_SIZE_BYTES}`;
         });
 
         document.getElementById("scoreBox").textContent = "";
+
+        resetBinaryStickyBits();
       }
 
+      setupBinaryStickyBarControls();
       generateProblem();
     </script>
   </body>
